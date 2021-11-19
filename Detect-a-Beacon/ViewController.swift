@@ -52,7 +52,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
             case .far:
                 self.view.backgroundColor = UIColor.blue
-                self.distanceRdistanceReadereading.text = "FAR"
+                self.distanceReader.text = "FAR"
 
             case .near:
                 self.view.backgroundColor = UIColor.orange
@@ -66,6 +66,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 self.view.backgroundColor = .black
                 self.distanceReader.text = "WHOA!"
             }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
+        if let beacon = beacons.first {
+            update(distance: beacon.proximity)
+        } else {
+            update(distance: .unknown)
         }
     }
 }
